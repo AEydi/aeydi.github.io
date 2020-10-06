@@ -27,10 +27,10 @@ Author E-mail: naimlasker@gmail.com
 /*----------------------------------------------------*/
 body {
   line-height: 26px;
-  font-size: 15px;
+  font-size: 16px;
   font-family: "Roboto", sans-serif;
   font-weight: 400;
-  color: #777777;
+  color: #5c5c5c;
   background: url(../img/body-bg.png) no-repeat center; }
 
 h1,
@@ -133,6 +133,38 @@ button:focus {
     color: #fff;
     opacity: .6; }
 
+  .portrait-title {
+    text-align: center;
+    margin: 10px; 
+    color: #222222;}
+    .portrait-title h2 {
+      font-size: 30px;
+      font-weight: 600;
+      line-height: 50px;
+      color: #222222;}
+      @media (max-width: 991px) {
+        .portrait-title h2 br {
+          display: none; } }
+      @media (max-width: 767px) {
+        .portrait-title h2 {
+          font-size: 26px;
+          line-height: 34px;
+          color: #222222; } }
+    .portrait-title p {
+      margin-bottom: 0px; }
+      .portrait-title h3 {
+        font-size: 20px;
+        font-weight: 400;
+        margin-bottom: 15px;
+        color: #424242;}
+        @media (max-width: 991px) {
+          .portrait-title h3 br {
+            display: none; } }
+        @media (max-width: 767px) {
+          .portrait-title h3 {
+            font-size: 18px;
+            color: #424242; } }
+
 /* End Main Title Area css
 ============================================================================================ */
 /* Start Gradient Area css
@@ -215,7 +247,7 @@ button:focus {
   position: absolute;
   width: 100%;
   z-index: 9999;
-  background: #212121; }
+  background: #222222; }
   .header_area .menu_nav {
     width: 100%; }
   .header_area .navbar {
@@ -282,7 +314,7 @@ button:focus {
             transition: all 0.4s linear; }
             .header_area .navbar .nav .nav-item.submenu ul .nav-item .nav-link {
               line-height: 45px;
-              color: #000000;
+              color: #222222;
               padding: 0px 30px;
               transition: all 150ms linear;
               display: block;
@@ -307,7 +339,7 @@ button:focus {
     top: -70px;
     left: 0;
     right: 0;
-    background: #212121;
+    background: #222222;
     transform: translateY(70px);
     transition: transform 500ms ease, background 500ms ease;
     -webkit-transition: transform 500ms ease, background 500ms ease;
@@ -332,7 +364,7 @@ button:focus {
       display: none; }
   .header_area.white_menu.navbar_fixed .main_menu .navbar .nav .nav-item .nav-link {
     line-height: 70px;
-    color: #000000; }
+    color: #222222; }
 
 .owl-carousel.off {
   display: -ms-flexbox;
@@ -2444,6 +2476,7 @@ h6 {
   .about_area .primary_btn {
     margin-top: 20px; }
   .about_area .about_img {
+    text-align: center;
     position: relative;
     right: 250px; }
     @media (max-width: 1480px) {
@@ -2455,8 +2488,23 @@ h6 {
     @media (max-width: 991px) {
       .about_area .about_img {
         display: inline-block;
+        max-width: 250px;
         padding-top: 15px;
-        padding-bottom: 20px; } }
+        padding-bottom: 2px; } }
+
+.description {
+  display: inline-table;
+  margin: 0px;
+  padding-left: 2px;
+  line-height: 26px;
+  font-size: 16px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  color: #5c5c5c;
+}
+.description p {
+  margin: 0px;
+}
 
 /* End About Us Area css
 ============================================================================================ */
@@ -2918,7 +2966,7 @@ h6 {
     margin-bottom: 23px; }
 
   .header_area .navbar {
-    background: #000; }
+    background: #222222; }
 
   .navbar-toggler[aria-expanded="false"] span:nth-child(2) {
     opacity: 1; }
