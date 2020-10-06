@@ -215,7 +215,7 @@ button:focus {
   position: absolute;
   width: 100%;
   z-index: 9999;
-  background: #ffffff; }
+  background: #212121; }
   .header_area .menu_nav {
     width: 100%; }
   .header_area .navbar {
@@ -227,9 +227,9 @@ button:focus {
     .header_area .navbar .nav .nav-item {
       margin-right: 45px; }
       .header_area .navbar .nav .nav-item .nav-link {
-        font: 500 14px/100px "Rubik", sans-serif;
+        font: 500 14px/70px "Rubik", sans-serif;
         text-transform: uppercase;
-        color: #000000;
+        color: #ffffff;
         padding: 0px;
         display: inline-block; }
         .header_area .navbar .nav .nav-item .nav-link:after {
@@ -307,7 +307,7 @@ button:focus {
     top: -70px;
     left: 0;
     right: 0;
-    background: #ffffff;
+    background: #212121;
     transform: translateY(70px);
     transition: transform 500ms ease, background 500ms ease;
     -webkit-transition: transform 500ms ease, background 500ms ease;
