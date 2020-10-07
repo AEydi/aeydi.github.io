@@ -1284,7 +1284,7 @@ button:focus {
 .sample-text-area {
   padding: 100px 0px; }
   .sample-text-area .title_color {
-    margin-bottom: 30px; }
+    margin-bottom: 20px; }
   .sample-text-area p {
     line-height: 26px; }
     .sample-text-area p b {
@@ -1477,7 +1477,7 @@ button:focus {
   background: #fff; }
 
 .section-top-border {
-  padding: 50px 0;
+  padding: 80px 0;
   border-top: 1px dotted #eee; }
 
 .switch-wrap {
@@ -1488,7 +1488,8 @@ button:focus {
 
 /*---------- End Elements Page -------------*/
 .sample-text-area {
-  padding: 120px 0 70px 0; }
+  padding: 0px 0 70px 0; 
+text-align: justify;}
 
 .sample-text {
   margin-bottom: 0; }
@@ -2412,7 +2413,7 @@ h6 {
 
 @media (max-width: 991px) {
   .left-align-p p {
-    margin-top: 20px; } }
+    margin-top: 0px; } }
 .form-select {
   height: 40px;
   width: 100%; }
