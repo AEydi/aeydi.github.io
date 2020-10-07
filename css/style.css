@@ -1477,7 +1477,8 @@ button:focus {
   background: #fff; }
 
 .section-top-border {
-  padding: 80px 0;
+  padding-top: 80px;
+  padding-bottom: 40px;
   border-top: 1px dotted #eee; }
 
 .switch-wrap {
