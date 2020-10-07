@@ -82,6 +82,22 @@ button:focus {
   margin-top: 50px; }
 
 /*---------------------------------------------------- */
+#page-container {
+  position: relative;
+  min-height: 100vh;
+}
+
+#content-wrap {
+  padding-bottom: 2.5rem;    /* Footer height */
+}
+
+#footer {
+  position: absolute;
+  text-align: center;
+  bottom: 0;
+  width: 100%;
+  height: 2.5rem;            /* Footer height */
+}
 /*----------------------------------------------------*/
 .section_gap {
   padding: 100px 0; }
