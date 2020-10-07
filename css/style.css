@@ -2659,19 +2659,28 @@ h6 {
 ============================================================================================ */
 /* Start Portfolio Area css
 ============================================================================================ */
+.project-item {
+  display: flex;
+  padding-bottom: 10px;
+}
 .portfolio_area {
-  padding-bottom: 120px; }
+  padding-bottom: 50px; }
+.portfolio_area img {
+  max-width: 150px; 
+  height: auto; 
+  object-fit: cover;
+}
   @media (max-width: 991px) {
     .portfolio_area {
       padding-bottom: 50px; } }
   .portfolio_area .filters ul {
-    padding-left: 0;
+    padding-left: 5px;
     margin-bottom: 50px; }
     @media (max-width: 991px) {
       .portfolio_area .filters ul {
         margin-bottom: 20px; } }
     .portfolio_area .filters ul li {
-      display: inline-block;
+      
       margin-right: 50px;
       font-size: 14px;
       font-weight: 500;
@@ -2686,7 +2695,18 @@ h6 {
         color: #854fee; }
       @media (max-width: 767px) {
         .portfolio_area .filters ul li {
-          margin-right: 20px; } }
+          margin-right: 20px; }
+          .portfolio_area h3{
+            font-size: 19px;
+          }
+          .portfolio_area p{
+            font-size: 13px;
+          }
+          .portfolio_area img {
+            max-width: 80px; 
+            height: auto; 
+            object-fit: cover;
+          } }
 
 .portfolio_box {
   margin-bottom: 80px; }
