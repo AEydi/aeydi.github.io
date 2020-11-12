@@ -1,0 +1,24 @@
+.ul .li::before {
+  color: #e5053a;
+}
+
+.fa.fa-check.fa-li.text-primary {
+  padding-top: 1px;
+}
+
+.fa.fa-graduation-cap.fa-li.text-primary {
+  padding-top: 2px;
+}
+
+.col-sm-6.item {
+  padding-bottom: 10px;
+}
+
+.img-fluid, .img-thumbnail {
+  padding-bottom: 10px;
+}
+
+body {
+  font-size: 1.2rem;
+}
+
