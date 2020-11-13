@@ -11,12 +11,13 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kaushan+Script">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
     <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
     <link rel="stylesheet" href="assets/css/styles.min.css">
 <link rel="icon" type="image/png" href="assets/img/icon.png">
 </head>
 
-<body id="page-top">
+<body id="page-top" style="font-family: Roboto, sans-serif;">
     <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-dark" id="mainNav">
         <div class="container"><a class="navbar-brand" href="#page-top" style="font-family: 'Kaushan Script', cursive;">Abdollah Eydi</a><button data-toggle="collapse" data-target="#navbarResponsive" class="navbar-toggler navbar-toggler-right" type="button" data-toogle="collapse"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
@@ -38,27 +39,26 @@
                     <h4 class="section-heading" style="padding-top: 10px;">Abdollah Eydi</h4>
                     <p class="text-muted">Mechatronics and Robotics Engineer<br></p>
                 </div>
-                <div class="col-md-7">
+                <div class="col-md-7 col-lg-7">
                     <h2 class="text-capitalize text-left section-heading">Biography<br></h2>
-                    <p class="text-justify text-muted">I am a passionate Mechatronics engineer excited about robotics, machine learning, and controls theory. I received my M.Sc. from the&nbsp;<a href="http://www.sharif.ir/">Sharif University of Technology</a>. Now, I'm seeking a challenging
+                    <p class="text-justify text-muted">I am a passionate Mechatronics engineer excited about robotics, machine learning, and controls theory. I received my M.Sc. from the <a href="www.sharif.ir"><strong>Sharif University of Technology</strong></a>. Now, I'm seeking a challenging
                         Ph.D. program in self-driving cars, control, and deep learning fields.<br></p>
                     <div class="row">
-                        <div class="col-md-6">
-                            <p class="text-left" style="height: 10px;">Interests<br></p>
-                            <ul class="list-unstyled text-left fa-ul" style="margin-left: 20px;">
-                                <li><i class="fa fa-check fa-li text-primary"></i>Robotics<br></li>
-                                <li>Machine Learning<br><i class="fa fa-check fa-li text-primary"></i></li>
-                                <li>Computer Vision<br><i class="fa fa-check fa-li text-primary"></i></li>
-                                <li>Autonomous Driving<br><i class="fa fa-check fa-li text-primary"></i></li>
+                        <div class="col-sm-12 col-md-5">
+                            <p class="text-left font-weight-bold" style="margin-bottom: 5px;">Interests<br></p>
+                            <ul class="list-unstyled text-left fa-ul">
+                                <li class="d-sm-flex align-items-sm-center"><i class="fa fa-check d-sm-flex align-items-sm-center fa-li text-primary"></i>Robotics<br></li>
+                                <li class="d-sm-flex align-items-sm-center"><i class="fa fa-check d-sm-flex align-items-sm-center fa-li text-primary"></i>Machine Learning<br></li>
+                                <li class="d-sm-flex align-items-sm-center"><i class="fa fa-check d-sm-flex align-items-sm-center fa-li text-primary"></i>Autonomous Driving<br></li>
                             </ul>
                         </div>
-                        <div class="col-md-6">
-                            <p class="text-left" style="height: 10px;">Education<br></p>
-                            <ul class="list-unstyled text-left fa-ul" style="margin-left: 20px;">
-                                <li><i class="fa fa-graduation-cap fa-li text-primary"></i>M.Sc. in Mechatronics Engineering<br></li>
-                                <li>Sharif University of Technology<br></li>
-                                <li>B.Sc. in Mechanical Engineering<br><i class="fa fa-graduation-cap fa-li text-primary"></i></li>
-                                <li>Urmia University<br></li>
+                        <div class="col-md-7 col-lg-7 col-xl-7">
+                            <p class="text-left font-weight-bold" style="margin-bottom: 5px;">Education<br></p>
+                            <ul class="list-unstyled text-left fa-ul">
+                                <li class="d-sm-flex align-items-sm-center"><i class="fa fa-graduation-cap d-sm-flex align-items-sm-center fa-li text-primary"></i>M.Sc. in Mechatronics Engineering<br></li>
+                                <li class="d-sm-flex align-items-sm-center">Sharif University of Technology<br></li>
+                                <li class="d-sm-flex align-items-sm-center"><i class="fa fa-graduation-cap d-sm-flex align-items-sm-center fa-li text-primary"></i>B.Sc. in Mechanical Engineering<br></li>
+                                <li class="d-sm-flex align-items-sm-center">Urmia University<br></li>
                             </ul>
                         </div>
                     </div>
@@ -66,26 +66,34 @@
             </div>
         </div>
     </section>
-    <section id="projects" class="bg-light">
+    <section id="projects">
         <div class="container">
             <div class="intro">
-                <h2 class="text-capitalize text-left section-heading">Projects</h2>
+                <h2 class="text-capitalize text-left section-heading" style="margin-bottom: 30px;">Projects</h2>
             </div>
             <div class="row projects">
                 <div class="col-sm-6 item">
                     <div class="row">
-                        <div class="col-md-12 col-lg-5"><a href="#"><img class="img-fluid" src="assets/img/Arashmini.jpg"></a></div>
+                        <div class="col-md-12 col-lg-5 portfolio-item">
+                            <a class="portfolio-link" data-toggle="modal" href="#portfolioModal1">
+                                <div class="portfolio-hover">
+                                    <div class="portfolio-hover-content"><i class="fa fa-plus fa-3x"></i></div>
+                                </div><img class="img-fluid" src="assets/img/Arash1.jpg"></a><a href="#portfolioModal1"></a></div>
                         <div class="col">
-                            <h3 class="name"><strong>Arash: A Humanoid Social Robot</strong></h3>
+                            <h3 class="name">Arash: A Humanoid Social Robot</h3>
                             <p class="description">A mobile social robot named “Arash” has been designed for educational and therapeutic interventions for children with cancer in a hospital environment...</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-6 item">
                     <div class="row">
-                        <div class="col-md-12 col-lg-5"><a href="#"><img class="img-fluid" src="assets/img/rasamini.jpg"></a></div>
+                        <div class="col-md-12 col-lg-5 portfolio-item">
+                            <a class="portfolio-link" data-toggle="modal" href="#portfolioModal1">
+                                <div class="portfolio-hover">
+                                    <div class="portfolio-hover-content"><i class="fa fa-plus fa-3x"></i></div>
+                                </div><img class="img-fluid" src="assets/img/rasamini.jpg"></a><a href="#portfolioModal1"></a></div>
                         <div class="col">
-                            <h3 class="name"><strong>RASA: Robot Assistant for Social Aims</strong><br></h3>
+                            <h3 class="name">RASA: Robot Assistant for Social Aims<br></h3>
                             <p class="description">RASA is a humanoid robot primarily for teaching Persian Sign Language (PSL) to children with hearing disabilities...<br></p>
                         </div>
                     </div>
@@ -115,25 +123,25 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="text-capitalize text-left">publications</h2>
+                    <h2 class="text-capitalize text-left" style="font-size: 40px;margin-bottom: 15px;">publications</h2>
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-12">
-                    <ul class="list-unstyled text-left fa-ul" style="margin-left: 20px;">
-                        <li class="text-justify"><i class="fa fa-file-text fa-li text-primary"></i>Meghdari, Ali, Azadeh Shariati, Minoo Alemi, Gholamreza R. Vossoughi,&nbsp;<strong>Abdollah Eydi</strong>, Ehsan Ahmadi, Behrad Mozafari, Ali Amoozandeh Nobaveh, and Reza Tahami.
-                            "<strong>Arash: A social robot buddy to support children with cancer in a hospital&nbsp;environment.</strong>" Proceedings of the Institution of Mechanical Engineers, Part H: Journal of Engineering in Medicine 232, no. 6 (2018):
-                            605-618.<br></li>
+                    <ul class="list-unstyled text-left fa-ul">
+                        <li class="text-justify align-items-sm-center"><i class="fa fa-file-text d-sm-flex align-items-sm-center fa-li text-primary"></i>Meghdari, Ali, Azadeh Shariati, Minoo Alemi, Gholamreza R. Vossoughi,&nbsp;<strong>Abdollah Eydi</strong>, Ehsan Ahmadi, Behrad Mozafari, Ali Amoozandeh
+                            Nobaveh, and Reza Tahami. "<strong>Arash: A social robot buddy to support children with&nbsp;cancer in a hospital environment." </strong>Proceedings of the Institution of Mechanical Engineers, Part H: Journal of Engineering
+                            in Medicine 232, no. 6 (2018): 605-618.<br></li>
                     </ul>
                 </div>
             </div>
         </div>
     </section>
-    <section id="contact" class="bg-light">
+    <section id="contact" class="bg-white">
         <div class="container">
             <div class="row text-center">
                 <div class="col-md-4">
-                    <h2 class="text-capitalize text-left section-heading"><strong>Contact</strong><br></h2>
+                    <h2 class="text-capitalize text-left section-heading">Contact<br></h2>
                 </div>
                 <div class="col-md-4 col-md-8">
                     <ul class="list-unstyled text-left fa-ul" style="margin-left: 20px;">
@@ -156,11 +164,11 @@
     </footer>
     <div class="modal fade portfolio-modal text-center" role="dialog" tabindex="-1" id="portfolioModal1">
         <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
+            <div class="modal-content"><button class="btn btn-warning d-xl-flex" data-dismiss="modal" type="button" style="position: fixed;z-index: 1;"><i class="fa fa-times"></i><span>&nbsp;Close</span></button>
+                <div class="modal-body d-xl-flex">
                     <div class="container">
-                        <div class="row">
-                            <div class="col-lg-8 mx-auto">
+                        <div class="row" style="/*position: inherit;*/">
+                            <div class="col-lg-8 col-xl-12 mx-auto">
                                 <div class="modal-body">
                                     <h2 class="text-uppercase">Project Name</h2>
                                     <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p><img class="img-fluid d-block mx-auto" src="assets/img/portfolio/1-full.jpg">
@@ -170,7 +178,8 @@
                                         <li>Date: January 2017</li>
                                         <li>Client: Threads</li>
                                         <li>Category: Illustration</li>
-                                    </ul><button class="btn btn-primary" data-dismiss="modal" type="button"><i class="fa fa-times"></i><span>&nbsp;Close Project</span></button></div>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
