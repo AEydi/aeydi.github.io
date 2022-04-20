@@ -1,7 +1,7 @@
 // Credit: Mateusz Rybczonec
 
 const FULL_DASH_ARRAY = 283;
-var TIME_LIMIT = 25*60;
+var TIME_LIMIT = 25;
 var stop_timer = true;
 var COLOR_CODES = {
     teal: {
@@ -17,7 +17,7 @@ var COLOR_CODES = {
 let colorElement = document.getElementById("base-timer-path-remaining");
 
 let timePassed = 0;
-let timeLeft = TIME_LIMIT;
+let timeLeft = TIME_LIMIT*60;
 let timerInterval = null;
 var timer = document.getElementById("base-timer-label");
 var target = 0;
