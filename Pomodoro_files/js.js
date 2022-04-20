@@ -59,11 +59,19 @@ function setTime(time){
     }
     resetText = t + ":00"; 
     resetTime();
+    (new Audio("./Pomodoro_files/tick.mp3")).play()
 }
 
 function onTimesUp() {
     clearInterval(timerInterval);
     stop_timer = true;
+    if (TIME_LIMIT == 25){
+        (new Audio("./Pomodoro_files/alert-work.mp3")).play()
+    } else if (TIME_LIMIT == 5){
+        (new Audio("./Pomodoro_files/alert-short-break.mp3")).play()
+    } else if (TIME_LIMIT == 15){
+        (new Audio("./Pomodoro_files/alert-long-break.mp3")).play()
+    }
 }
 
 function startTimer() {
@@ -87,6 +95,7 @@ function startTimer() {
             }
             
         }, 50);
+        (new Audio("./Pomodoro_files/tick.mp3")).play()
     }
     
 }
