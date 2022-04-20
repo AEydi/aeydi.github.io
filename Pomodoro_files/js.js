@@ -15,7 +15,7 @@ var COLOR_CODES = {
     }
 };
 let colorElement = document.getElementById("base-timer-path-remaining");
-
+let startBtn = document.getElementById("start");
 let timePassed = 0;
 let timeLeft = TIME_LIMIT*60;
 let timerInterval = null;
@@ -30,14 +30,23 @@ function resetTime(){
         colorElement.classList.remove(COLOR_CODES.teal.color);
         colorElement.classList.remove(COLOR_CODES.amber.color);
         colorElement.classList.add(COLOR_CODES.red.color);
+        startBtn.classList.remove(COLOR_CODES.teal.color);
+        startBtn.classList.remove(COLOR_CODES.amber.color);
+        startBtn.classList.add(COLOR_CODES.red.color);
     } else if (TIME_LIMIT == 5){
         colorElement.classList.remove(COLOR_CODES.teal.color);
         colorElement.classList.add(COLOR_CODES.amber.color);
         colorElement.classList.remove(COLOR_CODES.red.color);
+        startBtn.classList.remove(COLOR_CODES.teal.color);
+        startBtn.classList.add(COLOR_CODES.amber.color);
+        startBtn.classList.remove(COLOR_CODES.red.color);
     } else if (TIME_LIMIT == 15){
         colorElement.classList.add(COLOR_CODES.teal.color);
         colorElement.classList.remove(COLOR_CODES.amber.color);
         colorElement.classList.remove(COLOR_CODES.red.color);
+        startBtn.classList.add(COLOR_CODES.teal.color);
+        startBtn.classList.remove(COLOR_CODES.amber.color);
+        startBtn.classList.remove(COLOR_CODES.red.color);
     }
     timer.innerHTML = resetText;
 }

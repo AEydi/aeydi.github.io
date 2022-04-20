@@ -5,6 +5,9 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="import" ref="https://fonts.googleapis.com/css?family=Varela+Round>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Pmodoro</title>
     <link rel="stylesheet" href="./Pomodoro_files/styles.css">
@@ -23,6 +26,7 @@
                 <div class="base-timer">
                     <svg class="base-timer__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                         <g class="base-timer__circle">
+                            <circle class="base-timer__path-elapsed" cx="50" cy="50" r="45"></circle>
                             <path id="base-timer-path-remaining" stroke-dasharray="283"
                                 class="base-timer__path-remaining Red" d="
                             M 50, 50
@@ -39,31 +43,9 @@
     </div>
     <div class="btn-group btn-group-sm" role="group">
         
-        <button class="btn btn-primary" type="button" onclick="startTimer()">START</button>
+        <button id="start" class="btn start Red" type="button" onclick="startTimer()">START</button>
         
     </div>
-    <script>
-        function myFunction(event) {
-            var counter = document.getElementById("counter");
-            var timer = document.getElementById("base-timer-label");
-            if (event == "reset") {
-                counter.classList.add("stop");
-                if (counter.classList.contains("pomodoro")) {
-                    timer.innerHTML = "25:00";
-                }
-                if (counter.classList.contains("short")) {
-                    timer.innerHTML = "05:00";
-                }
-                if (counter.classList.contains("long")) {
-                    timer.innerHTML = "15:00";
-                }
-            }
-            if (event == "mode") {
-                var e = document.getElementsByClassName("bar");
-                percent(30, e);
-            }
-        }
-    </script>
     <script src="./Pomodoro_files/js.js"></script>
 
 </body>
