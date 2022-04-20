@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Pmodoro</title>
+    <link rel="stylesheet" href="./Pmodoro_files/styles.css">
+</head>
+
+<body style="text-align: center;">
+    <div class="btn-group btn-group-sm" role="group" style="border-radius: 0px;">
+        <button class="btn btn-primary" type="button" style="border-radius: 0px;"
+            onclick="setTime(25)">Pomodoro</button>
+        <button class="btn btn-primary" type="button" onclick="setTime(5)">Short break</button>
+        <button class="btn btn-primary" type="button" style="border-radius: 0px;" onclick="setTime(15)">Long
+            break</button></div>
+    <div class="row justify-content-center align-items-center">
+        <div class="col-auto align-self-center mx-auto">
+            <div id="app">
+                <div class="base-timer">
+                    <svg class="base-timer__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <g class="base-timer__circle">
+                            <path id="base-timer-path-remaining" stroke-dasharray="283"
+                                class="base-timer__path-remaining Red" d="
+                            M 50, 50
+                            m -45, 0
+                            a 45,45 0 1,0 90,0
+                            a 45,45 0 1,0 -90,0
+                          "></path>
+                        </g>
+                    </svg>
+                    <span id="base-timer-label" class="base-timer__label">25:00</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="btn-group btn-group-sm" role="group">
+        <button class="btn btn-primary" type="button" style="color: #8e8e8e;background-color: #00000000;border: 0px;"
+            onclick="myFunction('mode')">Dark mode</button>
+        <button class="btn btn-primary" type="button" onclick="startTimer()">START</button>
+        <button class="btn btn-primary" type="button" style="color: #8e8e8e;background-color: #00000000;border: 0px;"
+            onclick="resetTime()">Reset</button>
+    </div>
+    <script>
+        function myFunction(event) {
+            var counter = document.getElementById("counter");
+            var timer = document.getElementById("base-timer-label");
+            if (event == "reset") {
+                counter.classList.add("stop");
+                if (counter.classList.contains("pomodoro")) {
+                    timer.innerHTML = "25:00";
+                }
+                if (counter.classList.contains("short")) {
+                    timer.innerHTML = "05:00";
+                }
+                if (counter.classList.contains("long")) {
+                    timer.innerHTML = "15:00";
+                }
+            }
+            if (event == "mode") {
+                var e = document.getElementsByClassName("bar");
+                percent(30, e);
+            }
+        }
+    </script>
+    <script src="./Pmodoro_files/js.js"></script>
+
+</body>
+
+</html>
