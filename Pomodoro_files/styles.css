@@ -79,15 +79,14 @@ body {
 }
 
 button {
-  width: 100px;
-  margin: 10px;
+  width: 95px;
   background-color: #9292929a;
 }
 
 .btn{
   border: none;
   color: white;
-  margin: 5px;
+  margin: 5px 0px;
   border-radius: 4px;
   padding: 2px 12px;
   height: 28px;
