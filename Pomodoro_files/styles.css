@@ -79,7 +79,7 @@ body {
 }
 
 button {
-  width: 95px;
+  width: 80px;
   background-color: #9292929a;
 }
 
@@ -88,7 +88,7 @@ button {
   color: white;
   margin: 5px 0px;
   border-radius: 4px;
-  padding: 2px 12px;
+  padding: 0px !important;
   height: 28px;
   cursor: pointer;
   box-shadow: none;
