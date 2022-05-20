@@ -1,7 +1,10 @@
 // Credit: Mateusz Rybczonec
 
 const FULL_DASH_ARRAY = 283;
-var TIME_LIMIT = 25;
+const P_TIME = 30;
+const L_TIME = 15;
+const S_TIME = 5;
+var TIME_LIMIT = P_TIME;
 var stop_timer = true;
 var COLOR_CODES = {
     teal: {
@@ -26,21 +29,21 @@ let resetText = "00:00";
 function resetTime(){
     stop_timer = true;
     timeLeft = TIME_LIMIT*60;
-    if (TIME_LIMIT == 25){
+    if (TIME_LIMIT == P_TIME){
         colorElement.classList.remove(COLOR_CODES.teal.color);
         colorElement.classList.remove(COLOR_CODES.amber.color);
         colorElement.classList.add(COLOR_CODES.red.color);
         startBtn.classList.remove(COLOR_CODES.teal.color);
         startBtn.classList.remove(COLOR_CODES.amber.color);
         startBtn.classList.add(COLOR_CODES.red.color);
-    } else if (TIME_LIMIT == 5){
+    } else if (TIME_LIMIT == S_TIME){
         colorElement.classList.remove(COLOR_CODES.teal.color);
         colorElement.classList.add(COLOR_CODES.amber.color);
         colorElement.classList.remove(COLOR_CODES.red.color);
         startBtn.classList.remove(COLOR_CODES.teal.color);
         startBtn.classList.add(COLOR_CODES.amber.color);
         startBtn.classList.remove(COLOR_CODES.red.color);
-    } else if (TIME_LIMIT == 15){
+    } else if (TIME_LIMIT == L_TIME){
         colorElement.classList.add(COLOR_CODES.teal.color);
         colorElement.classList.remove(COLOR_CODES.amber.color);
         colorElement.classList.remove(COLOR_CODES.red.color);
@@ -52,6 +55,16 @@ function resetTime(){
 }
 
 function setTime(time){
+    if(time == 'P_TIME'){
+        time = P_TIME
+    }
+    else if(time == 'L_TIME'){
+        time = L_TIME
+    }
+    else if(time == 'S_TIME')
+    {
+        time = S_TIME
+    }
     TIME_LIMIT = time;
     var t = time.toString();
     if (time < 10){
@@ -65,11 +78,11 @@ function setTime(time){
 function onTimesUp() {
     clearInterval(timerInterval);
     stop_timer = true;
-    if (TIME_LIMIT == 25){
+    if (TIME_LIMIT == P_TIME){
         (new Audio("./Pomodoro_files/alert-work.mp3")).play()
-    } else if (TIME_LIMIT == 5){
+    } else if (TIME_LIMIT == S_TIME){
         (new Audio("./Pomodoro_files/alert-short-break.mp3")).play()
-    } else if (TIME_LIMIT == 15){
+    } else if (TIME_LIMIT == L_TIME){
         (new Audio("./Pomodoro_files/alert-long-break.mp3")).play()
     }
 }

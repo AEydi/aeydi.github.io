@@ -16,9 +16,9 @@
 <body style="text-align: center;" class="dark">
     <div class="btn-group" role="group">
         <button class="btn btnred" type="button"
-            onclick="setTime(25)">Pomodoro</button>
-        <button class="btn btnamber" type="button" onclick="setTime(5)">Short break</button>
-        <button class="btn btnteal" type="button"  onclick="setTime(15)">Long
+            onclick="setTime('P_TIME')">Pomodoro</button>
+        <button class="btn btnamber" type="button" onclick="setTime('S_TIME')">Short break</button>
+        <button class="btn btnteal" type="button"  onclick="setTime('L_TIME')">Long
             break</button></div>
     <div class="row justify-content-center align-items-center">
         <div class="col-auto align-self-center mx-auto">
@@ -36,7 +36,7 @@
                           "></path>
                         </g>
                     </svg>
-                    <span id="base-timer-label" class="base-timer__label">25:00</span>
+                    <span id="base-timer-label" class="base-timer__label">00:00</span>
                 </div>
             </div>
         </div>
