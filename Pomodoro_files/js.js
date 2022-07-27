@@ -1,7 +1,7 @@
 // Credit: Mateusz Rybczonec
 
 const FULL_DASH_ARRAY = 283;
-const P_TIME = 30;
+const P_TIME = 25;
 const L_TIME = 15;
 const S_TIME = 5;
 var TIME_LIMIT = P_TIME;
