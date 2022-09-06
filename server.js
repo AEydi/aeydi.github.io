@@ -86,6 +86,7 @@ function search(text) {
                     if (term == "داروخانه") {
                         searchMarkers[i] = L.circle([info.location.y, info.location.x], {
                             color: '#00E676',
+                            weight: 1,
                             fillColor: '#00E676',
                             fillOpacity: 0.5,
                             radius: 25
@@ -94,6 +95,7 @@ function search(text) {
                     } else if ((term == "درمانگاه") || term == "بیمارستان") {
                         searchMarkers[i] = L.circle([info.location.y, info.location.x], {
                             color: '#FFC400',
+                            weight: 1,
                             fillColor: '#FFC400',
                             fillOpacity: 0.3,
                             radius: 50
