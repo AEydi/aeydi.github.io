@@ -1,7 +1,13 @@
 var centerLat = 35.699739;
 var centerLng = 51.338097;
-var searchText = ""
-var allResult = []
+var searchText = "";
+var allResult = [];
+var farParmacy = 0;
+var desire = 250;
+var actualZoom = 14;
+var possible = [];
+var parmacies = [];
+var done = 0;
 
 //init the map
 var myMap = new L.Map('map', {
@@ -17,52 +23,32 @@ var marker = L.marker([35.699739, 51.338097]).addTo(myMap);
 //on map binding
 myMap.on('click', addMarkerOnMap);
 
-var greenIcon = new L.Icon({
-    iconUrl: `icon/marker-icon-2x-green.png`,
-    shadowUrl: 'icon/shadow/marker-shadow.png',
-    iconSize: [25, 41],
-    iconAnchor: [12, 41],
-    popupAnchor: [1, -34],
-    shadowSize: [41, 41]
-});
-
-var redIcon = new L.Icon({
-    iconUrl: 'icon/marker-icon-2x-red.png',
-    shadowUrl: 'icon/shadow/marker-shadow.png',
-    iconSize: [25, 41],
-    iconAnchor: [12, 41],
-    popupAnchor: [1, -34],
-    shadowSize: [41, 41]
-});
-
-
 //on map click function
 function addMarkerOnMap(e) {
     marker.setLatLng(e.latlng);
     //marker.bindPopup(`lat : ${e.latlng.lat} - lng : ${e.latlng.lng}`).openPopup();
     centerLat = e.latlng.lat;
     centerLng = e.latlng.lng;
-    var texts = ["داروخانه", "درمانگاه", "بیمارستان", "مطب"];
-    for (i = 0; i < 4; i++) {
-        search(texts[i])
-    }
+    parmacies = [];
+    done = 0;
+    possible = []
+    search("داروخانه");
+    //var texts = ["داروخانه", "درمانگاه", "بیمارستان", "مطب"];
+    //for (i = 0; i < 4; i++) {
+    //    search(texts[i])
+    //}
 }
 
 var searchMarkers = [];
 
 //sending request to Search API
 function search(text) {
-    // restarting the markers
-    //for (var j = 0; j < searchMarkers.length; j++) {
-    //    if (searchMarkers[j] != null) {
-    //        myMap.removeLayer(searchMarkers[j]);
-    //        searchMarkers[j] = null;
-    //    }
-    //}
     marker.setLatLng([centerLat, centerLng]);
-
     //getting term value from input tag
     var term = text;
+    // we need b inside search to create circle and remove that global not work here
+    var b;
+    var condition = false;
     //making url 
     var url = `https://api.neshan.org/v1/search?term=${term}&lat=${centerLat}&lng=${centerLng}`;
     //add your api key
@@ -76,44 +62,113 @@ function search(text) {
     axios.get(url, params)
         .then(data => {
             //set center of map to marker location
-            myMap.flyTo([centerLat, centerLng], 14);
+            actualZoom = myMap._zoom;
+            myMap.flyTo([centerLat, centerLng], actualZoom);
             //for every search resualt add marker
-            var i;
+            if (term == "داروخانه") {
+                farParmacy = distance(data.data.items[29].location.y, data.data.items[29].location.x, centerLat, centerLng)
+                b = L.circle([centerLat, centerLng], {
+                    color: '#2979FF',
+                    weight: 1,
+                    fillColor: '#2979FF',
+                    fillOpacity: 0.1,
+                    radius: farParmacy
+                }).addTo(myMap);
+                setTimeout(() => {
+                    myMap.removeLayer(b);
+                }, 5000); // 👈️ time in milliseconds
+            }
+            var count = data.data.count;
             for (i = 0; i < data.data.count; i++) {
                 var info = data.data.items[i];
-                if (!(allResult.some(e => e.title === info.title && distance(e.location.y, e.location.x, info.location.y, info.location.x)))) {
+                var searchMarker;
+                if (!(allResult.some(e => e.title === info.title && distance(e.location.y, e.location.x, info.location.y, info.location.x) < 30))) {
                     allResult.push(info)
                     if (term == "داروخانه") {
-                        searchMarkers[i] = L.circle([info.location.y, info.location.x], {
+                        parmacies.push(info);
+                        searchMarker = L.circle([info.location.y, info.location.x], {
                             color: '#00E676',
                             weight: 1,
                             fillColor: '#00E676',
-                            fillOpacity: 0.5,
+                            fillOpacity: 0.3,
                             radius: 25
                         }).addTo(myMap);
-                        searchMarkers[i].bindPopup(info.title);
+                        searchMarker.bindPopup(info.title);
+                        searchMarkers.push(searchMarker);
                     } else if ((term == "درمانگاه") || term == "بیمارستان") {
-                        searchMarkers[i] = L.circle([info.location.y, info.location.x], {
+                        condition = false;
+                        if (distance(info.location.y, info.location.x, centerLat, centerLng) < farParmacy) {
+                            condition = true;
+                            for (j = 0; j < parmacies.length; j++) {
+                                if (distance(parmacies[j].location.y, parmacies[j].location.x, info.location.y, info.location.x) < desire) {
+                                    condition = false;
+                                }
+                            }
+                        }
+                        if (condition) {
+                            possible.push({
+                                name: info.title,
+                                type: "درمانگاه",
+                                location: info.location
+                            });
+                        }
+                        searchMarker = L.circle([info.location.y, info.location.x], {
                             color: '#FFC400',
                             weight: 1,
                             fillColor: '#FFC400',
                             fillOpacity: 0.3,
                             radius: 50
                         }).addTo(myMap);
-                        searchMarkers[i].bindPopup(info.title);
+                        searchMarker.bindPopup(info.title);
+                        searchMarkers.push(searchMarker);
                     } else {
-                        searchMarkers[i] = L.circle([info.location.y, info.location.x], {
+                        condition = false;
+                        if (distance(info.location.y, info.location.x, centerLat, centerLng) < farParmacy) {
+                            condition = true;
+                            for (j = 0; j < parmacies.length; j++) {
+                                if (distance(parmacies[j].location.y, parmacies[j].location.x, info.location.y, info.location.x) < desire) {
+                                    condition = false;
+                                }
+                            }
+                        }
+                        if (condition) {
+                            possible.push({
+                                name: info.title,
+                                type: "مطب",
+                                location: info.location
+                            });
+                        }
+                        searchMarker = L.circle([info.location.y, info.location.x], {
                             color: '#FF1744',
                             weight: 1,
                             fillColor: '#FF1744',
                             fillOpacity: 0.5,
                             radius: 25
                         }).addTo(myMap);
-                        searchMarkers[i].bindPopup(info.title);
+                        searchMarker.bindPopup(info.title);
+                        searchMarkers.push(searchMarker);
                     }
                 }
-
-                //makeDiveResualt(data.data.items[i], i);
+                if (i == count - 1) {
+                    var texts = ["مطب",
+                            "بیمارستان",
+                            "درمانگاه"
+                    ];
+                    if (done < 3) {
+                        search(texts[done]);
+                    }
+                    done = done + 1;
+                }
+                if (done == 4) {
+                    for (k = 0; k < possible.length; k++) {
+                        if (possible[k].type == "درمانگاه") {
+                            searchPlus("داروخانه", "درمانگاه", possible[k].name, possible[k].location.y, possible[k].location.x)
+                        } else if (possible[k].type == "مطب") {
+                            searchPlus("داروخانه", "مطب", possible[k].name, possible[k].location.y, possible[k].location.x)
+                        }
+    
+                    }
+                }
             }
 
         }).catch(error => {
@@ -122,40 +177,71 @@ function search(text) {
 }
 
 function distance(lat1, lon1, lat2, lon2) {
-    var p = 0.017453292519943295;    // Math.PI / 180
+    var p = 0.017453292519943295; // Math.PI / 180
     var c = Math.cos;
-    var a = 0.5 - c((lat2 - lat1) * p)/2 + 
-            c(lat1 * p) * c(lat2 * p) * 
-            (1 - c((lon2 - lon1) * p))/2;
-    d = 12742000 * Math.asin(Math.sqrt(a));
-    return d < 20; // 2 * R; R = 6371 km
-  }
+    var a = 0.5 - c((lat2 - lat1) * p) / 2 +
+        c(lat1 * p) * c(lat2 * p) *
+        (1 - c((lon2 - lon1) * p)) / 2;
+    var d = 12742000 * Math.asin(Math.sqrt(a));
+    return d // 2 * R; R = 6371 km
+}
 
-function makeDiveResualt(data, index) {
-    var resultsDiv = document.getElementById("resualt");
-    var resultDiv = document.createElement("div");
-    resultDiv.onclick = function (e) {
-        myMap.flyTo([data.location.y, data.location.x], 14);
-        // searchMarkers[index].setIcon(redIcon);
-        // setTimeout(function(){
-        //     searchMarkers[index].setIcon(greenIcon);
-        // },4000);
-        for (var i = 0; i < searchMarkers.length; i++) {
-            if (i == index) {
-                searchMarkers[i].setIcon(redIcon);
-                continue;
+function searchPlus(text, type, name, slat, slng) {
+    var term = text;
+    //making url 
+    var url = `https://api.neshan.org/v1/search?term=${term}&lat=${slat}&lng=${slng}`;
+    //add your api key
+    var params = {
+        headers: {
+            'Api-Key': 'service.11ed21519e32475492de20770d1c02ae'
+        },
+
+    };
+    //sending get request
+    axios.get(url, params)
+        .then(data => {
+            //for every search resualt add marker
+            var parmacy = [];
+            var searchMarkerr;
+            var infos
+            console.log(data.data);
+            for (ii = 0; ii < data.data.count; ii++) {
+                ab = 1;
+                infos = data.data.items[ii];
+                parmacy.push(infos);
+                
+                //searchMarkers.push(searchMarker);
             }
-            searchMarkers[i].setIcon(greenIcon);
-        }
-
-    }
-    resultDiv.dir = "ltr";
-    var resultAddress = document.createElement("pre");
-    resultAddress.textContent = `title : ${data.title} \n Address : ${data.address} \n type : ${data.type}`;
-    resultAddress.style = `border: solid ${generateRandomColor()};`;
-    resultsDiv.appendChild(resultDiv);
-    resultDiv.appendChild(resultAddress);
-
+            var cond = true;
+            for (ii = 0; ii < parmacy.length; ii++) {
+                if (distance(parmacy[ii].location.y, parmacy[ii].location.x, slat, slng) < desire) {
+                    cond = false;
+                }
+            }
+            if (cond) {
+                if (type == "درمانگاه") {
+                    searchMarkerr = L.circle([slat, slng], {
+                        color: '#FFC400',
+                        weight: 1,
+                        fillColor: '#FFC400',
+                        fillOpacity: 0.1,
+                        radius: desire
+                    }).addTo(myMap);
+                    searchMarkerr.bindPopup(name);
+                } else if (type == "مطب") {
+                    searchMarkerr = L.circle([slat, slng], {
+                        color: '#FF1744',
+                        weight: 1,
+                        fillColor: '#FF1744',
+                        fillOpacity: 0.1,
+                        radius: desire
+                    }).addTo(myMap);
+                    searchMarkerr.bindPopup(name);
+                }
+            }
+        }).catch(error => {
+            console.log(error.response);
+        });
 }
 
 //random color generator :))
