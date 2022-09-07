@@ -1,5 +1,6 @@
 var centerLat = 35.699739;
 var centerLng = 51.338097;
+var complate = true;
 var searchText = "";
 var allResult = [];
 var farParmacy = 0;
@@ -7,6 +8,7 @@ var desire = 200;
 var actualZoom = 14;
 var possible = [];
 var parmacies = [];
+var clickedtwice = false;
 var done = 0;
 var myDate = new Date();
 var choose = myDate.getDate() % 2;
@@ -32,19 +34,31 @@ myMap.on('click', addMarkerOnMap);
 
 //on map click function
 function addMarkerOnMap(e) {
-    marker.setLatLng(e.latlng);
-    centerLat = e.latlng.lat;
-    centerLng = e.latlng.lng;
-    parmacies = [];
-    done = 0;
-    possible = []
-    search("داروخانه");
+    console.log("click");
+    if (complate) {
+        marker.setLatLng(e.latlng);
+        centerLat = e.latlng.lat;
+        centerLng = e.latlng.lng;
+        parmacies = [];
+        done = 0;
+        possible = []
+        while (!complate) {
+            clickedtwice = true;
+            console.log("twice");
+        }
+        // Start
+        complate = false;
+        clickedtwice = false;
+        search("داروخانه");
+    }
+
 }
 
 var searchMarkers = [];
 
 //sending request to Search API
 function search(text) {
+    console.log("start");
     marker.setLatLng([centerLat, centerLng]);
     //getting term value from input tag
     var term = text;
@@ -84,8 +98,8 @@ function search(text) {
             for (i = 0; i < data.data.count; i++) {
                 var info = data.data.items[i];
                 var searchMarker;
-                if ((info.title.includes('شبانه') || info.title.includes('مرکز') || info.title.includes('سلامت') || info.title.includes('لیزر') || info.title.includes('زیبا') || info.title.includes('پزشک') || info.title.includes('درمان') || info.title.includes('کلینیک') || info.title.includes('بیمار') || info.title.includes('مطب') || info.title.includes('دکتر')) && !(info.title.includes('بانک') || info.title.includes('مطبوع') || info.title.includes('پارکینگ') || info.title.includes('دامپزشک') || info.title.includes('رستوران'))) {
-                    if (!(allResult.some(e => e.checked && e.title === info.title && distance(e.location.y, e.location.x, info.location.y, info.location.x) < 50))) {
+                if ((info.title.includes('دراگ') || info.title.includes('داروخانه') || info.title.includes('شبانه') || info.title.includes('مرکز') || info.title.includes('سلامت') || info.title.includes('لیزر') || info.title.includes('زیبا') || info.title.includes('پزشک') || info.title.includes('درمان') || info.title.includes('کلینیک') || info.title.includes('بیمار') || info.title.includes('مطب') || info.title.includes('دکتر')) && !(info.title.includes('بانک') || info.title.includes('مطبوع') || info.title.includes('پارکینگ') || info.title.includes('طب سنتی') || info.title.includes('دامپزشک') || info.title.includes('رستوران'))) {
+                    if (!(allResult.some(e => e.checked && titlecheck(e.title, info.title) && distance(e.location.y, e.location.x, info.location.y, info.location.x) < 50))) {
                         if (term == "داروخانه") {
                             info.checked = true;
                             parmacies.push(info);
@@ -129,15 +143,11 @@ function search(text) {
                             searchMarkers.push(searchMarker);
                         } else {
                             condition = false;
-                            if (info.title == "مطب دکتر") {
-                                console.log('yessss');
-                            }
+                            if (info.title == "مطب دکتر") {}
                             if (distance(info.location.y, info.location.x, centerLat, centerLng) < farParmacy) {
                                 info.checked = true;
                                 condition = true;
-                                if (info.title == "مطب دکتر") {
-                                    console.log('yes');
-                                }
+                                if (info.title == "مطب دکتر") {}
                                 for (j = 0; j < parmacies.length; j++) {
                                     if (distance(parmacies[j].location.y, parmacies[j].location.x, info.location.y, info.location.x) < desire) {
                                         condition = false;
@@ -183,14 +193,47 @@ function search(text) {
                         } else if (possible[k].type == "مطب") {
                             searchPlus("داروخانه", "مطب", possible[k].name, possible[k].location.y, possible[k].location.x)
                         }
-
                     }
+                    console.log("complate");
+                    complate = true;
                 }
             }
 
         }).catch(error => {
             console.log(error.response);
         });
+}
+
+function titlecheck(main, minor) {
+    main = main.replaceAll("داروخانه", "").replaceAll("بیمارستان", "").replaceAll("شبانه روزی", "").replaceAll("مطب", "").replaceAll("دکتر", "").replaceAll("کیلنیک", "").trim();
+    minor = minor.replaceAll("داروخانه", "").replaceAll("بیمارستان", "").replaceAll("شبانه روزی", "").replaceAll("مطب", "").replaceAll("دکتر", "").replaceAll("کیلنیک", "").trim();
+    if (main == minor) {
+        return true;
+    } else if (main == "" || minor == "") {
+        return true;
+    } else if (main.length > minor.length) {
+        let M = main.split(" ");
+        let minorShadow = minor.replaceAll(" ", "");
+        for (h = 0; h < M.length; h++) {
+            minorShadow = minorShadow.replace(M[h], "");
+        }
+        if (minorShadow == "") {
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        let m = minor.split(" ");
+        let mainShadow = main.replaceAll(" ", "");
+        for (h = 0; h < m.length; h++) {
+            mainShadow = mainShadow.replace(m[h], "");
+        }
+        if (mainShadow == "") {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 
 function distance(lat1, lon1, lat2, lon2) {
