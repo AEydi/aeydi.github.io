@@ -8,10 +8,17 @@ var actualZoom = 14;
 var possible = [];
 var parmacies = [];
 var done = 0;
+var myDate = new Date();
+var choose = myDate.getDate() % 2;
+var keys = [
+    ['web.89f242966233457cbb1f46c665eca8b9', 'service.11ed21519e32475492de20770d1c02ae'],
+    ['web.f5f0f47d0bf34850a37b3804d5287e1f', 'service.383b5d34b1984e92a498efe3fa3771c5']
+];
+var todayKey = keys[choose];
 
 //init the map
 var myMap = new L.Map('map', {
-    key: 'web.89f242966233457cbb1f46c665eca8b9',
+    key: todayKey[0],
     maptype: 'dreamy',
     poi: true,
     traffic: false,
@@ -26,17 +33,12 @@ myMap.on('click', addMarkerOnMap);
 //on map click function
 function addMarkerOnMap(e) {
     marker.setLatLng(e.latlng);
-    //marker.bindPopup(`lat : ${e.latlng.lat} - lng : ${e.latlng.lng}`).openPopup();
     centerLat = e.latlng.lat;
     centerLng = e.latlng.lng;
     parmacies = [];
     done = 0;
     possible = []
     search("داروخانه");
-    //var texts = ["داروخانه", "درمانگاه", "بیمارستان", "مطب"];
-    //for (i = 0; i < 4; i++) {
-    //    search(texts[i])
-    //}
 }
 
 var searchMarkers = [];
@@ -54,7 +56,7 @@ function search(text) {
     //add your api key
     var params = {
         headers: {
-            'Api-Key': 'service.11ed21519e32475492de20770d1c02ae'
+            'Api-Key': todayKey[1]
         },
 
     };
@@ -76,83 +78,98 @@ function search(text) {
                 }).addTo(myMap);
                 setTimeout(() => {
                     myMap.removeLayer(b);
-                }, 5000); // 👈️ time in milliseconds
+                }, 4000); // 👈️ time in milliseconds
             }
             var count = data.data.count;
             for (i = 0; i < data.data.count; i++) {
                 var info = data.data.items[i];
                 var searchMarker;
-                if (!(allResult.some(e => e.title === info.title && distance(e.location.y, e.location.x, info.location.y, info.location.x) < 30))) {
-                    allResult.push(info)
-                    if (term == "داروخانه") {
-                        parmacies.push(info);
-                        searchMarker = L.circle([info.location.y, info.location.x], {
-                            color: '#00E676',
-                            weight: 1,
-                            fillColor: '#00E676',
-                            fillOpacity: 0.3,
-                            radius: 25
-                        }).addTo(myMap);
-                        searchMarker.bindPopup(info.title);
-                        searchMarkers.push(searchMarker);
-                    } else if ((term == "درمانگاه") || term == "بیمارستان") {
-                        condition = false;
-                        if (distance(info.location.y, info.location.x, centerLat, centerLng) < farParmacy) {
-                            condition = true;
-                            for (j = 0; j < parmacies.length; j++) {
-                                if (distance(parmacies[j].location.y, parmacies[j].location.x, info.location.y, info.location.x) < desire) {
-                                    condition = false;
+                if ((info.title.includes('شبانه') || info.title.includes('مرکز') || info.title.includes('سلامت') || info.title.includes('لیزر') || info.title.includes('زیبا') || info.title.includes('پزشک') || info.title.includes('درمان') || info.title.includes('کلینیک') || info.title.includes('بیمار') || info.title.includes('مطب') || info.title.includes('دکتر')) && !(info.title.includes('بانک') || info.title.includes('مطبوع') || info.title.includes('پارکینگ') || info.title.includes('دامپزشک') || info.title.includes('رستوران'))) {
+                    if (!(allResult.some(e => e.checked && e.title === info.title && distance(e.location.y, e.location.x, info.location.y, info.location.x) < 50))) {
+                        if (term == "داروخانه") {
+                            info.checked = true;
+                            parmacies.push(info);
+                            searchMarker = L.circle([info.location.y, info.location.x], {
+                                color: '#00E676',
+                                weight: 1,
+                                fillColor: '#00E676',
+                                fillOpacity: 0.3,
+                                radius: 25
+                            }).addTo(myMap);
+                            searchMarker.bindPopup(info.title);
+                            searchMarkers.push(searchMarker);
+                        } else if ((term == "درمانگاه" || term == "بیمارستان")) {
+                            condition = false;
+                            if (distance(info.location.y, info.location.x, centerLat, centerLng) < farParmacy) {
+                                info.checked = true;
+                                condition = true;
+                                for (j = 0; j < parmacies.length; j++) {
+                                    if (distance(parmacies[j].location.y, parmacies[j].location.x, info.location.y, info.location.x) < desire) {
+                                        condition = false;
+                                    }
                                 }
+                            } else {
+                                info.checked = false;
                             }
-                        }
-                        if (condition) {
-                            possible.push({
-                                name: info.title,
-                                type: "درمانگاه",
-                                location: info.location
-                            });
-                        }
-                        searchMarker = L.circle([info.location.y, info.location.x], {
-                            color: '#FFC400',
-                            weight: 1,
-                            fillColor: '#FFC400',
-                            fillOpacity: 0.3,
-                            radius: 50
-                        }).addTo(myMap);
-                        searchMarker.bindPopup(info.title);
-                        searchMarkers.push(searchMarker);
-                    } else {
-                        condition = false;
-                        if (distance(info.location.y, info.location.x, centerLat, centerLng) < farParmacy) {
-                            condition = true;
-                            for (j = 0; j < parmacies.length; j++) {
-                                if (distance(parmacies[j].location.y, parmacies[j].location.x, info.location.y, info.location.x) < desire) {
-                                    condition = false;
+                            if (condition) {
+                                possible.push({
+                                    name: info.title,
+                                    type: "درمانگاه",
+                                    location: info.location
+                                });
+                            }
+                            searchMarker = L.circle([info.location.y, info.location.x], {
+                                color: '#FFC400',
+                                weight: 1,
+                                fillColor: '#FFC400',
+                                fillOpacity: 0.3,
+                                radius: 50
+                            }).addTo(myMap);
+                            searchMarker.bindPopup(info.title);
+                            searchMarkers.push(searchMarker);
+                        } else {
+                            condition = false;
+                            if (info.title == "مطب دکتر") {
+                                console.log('yessss');
+                            }
+                            if (distance(info.location.y, info.location.x, centerLat, centerLng) < farParmacy) {
+                                info.checked = true;
+                                condition = true;
+                                if (info.title == "مطب دکتر") {
+                                    console.log('yes');
                                 }
+                                for (j = 0; j < parmacies.length; j++) {
+                                    if (distance(parmacies[j].location.y, parmacies[j].location.x, info.location.y, info.location.x) < desire) {
+                                        condition = false;
+                                    }
+                                }
+                            } else {
+                                info.checked = false;
                             }
+                            if (condition) {
+                                possible.push({
+                                    name: info.title,
+                                    type: "مطب",
+                                    location: info.location
+                                });
+                            }
+                            searchMarker = L.circle([info.location.y, info.location.x], {
+                                color: '#FF1744',
+                                weight: 1,
+                                fillColor: '#FF1744',
+                                fillOpacity: 0.5,
+                                radius: 25
+                            }).addTo(myMap);
+                            searchMarker.bindPopup(info.title);
+                            searchMarkers.push(searchMarker);
                         }
-                        if (condition) {
-                            possible.push({
-                                name: info.title,
-                                type: "مطب",
-                                location: info.location
-                            });
-                        }
-                        searchMarker = L.circle([info.location.y, info.location.x], {
-                            color: '#FF1744',
-                            weight: 1,
-                            fillColor: '#FF1744',
-                            fillOpacity: 0.5,
-                            radius: 25
-                        }).addTo(myMap);
-                        searchMarker.bindPopup(info.title);
-                        searchMarkers.push(searchMarker);
+                        allResult.push(info);
                     }
                 }
                 if (i == count - 1) {
                     var texts = ["مطب",
-                            "بیمارستان",
-                            "درمانگاه"
+                        "بیمارستان",
+                        "درمانگاه"
                     ];
                     if (done < 3) {
                         search(texts[done]);
@@ -166,7 +183,7 @@ function search(text) {
                         } else if (possible[k].type == "مطب") {
                             searchPlus("داروخانه", "مطب", possible[k].name, possible[k].location.y, possible[k].location.x)
                         }
-    
+
                     }
                 }
             }
@@ -187,6 +204,7 @@ function distance(lat1, lon1, lat2, lon2) {
 }
 
 function searchPlus(text, type, name, slat, slng) {
+    // console.log(name);
     var term = text;
     //making url 
     var url = `https://api.neshan.org/v1/search?term=${term}&lat=${slat}&lng=${slng}`;
@@ -204,12 +222,11 @@ function searchPlus(text, type, name, slat, slng) {
             var parmacy = [];
             var searchMarkerr;
             var infos
-            console.log(data.data);
             for (ii = 0; ii < data.data.count; ii++) {
                 ab = 1;
                 infos = data.data.items[ii];
                 parmacy.push(infos);
-                
+
                 //searchMarkers.push(searchMarker);
             }
             var cond = true;
@@ -224,10 +241,11 @@ function searchPlus(text, type, name, slat, slng) {
                         color: '#FFC400',
                         weight: 1,
                         fillColor: '#FFC400',
-                        fillOpacity: 0.1,
+                        fillOpacity: 0.2,
                         radius: desire
                     }).addTo(myMap);
                     searchMarkerr.bindPopup(name);
+                    searchMarkerr.bringToBack();
                 } else if (type == "مطب") {
                     searchMarkerr = L.circle([slat, slng], {
                         color: '#FF1744',
@@ -237,6 +255,7 @@ function searchPlus(text, type, name, slat, slng) {
                         radius: desire
                     }).addTo(myMap);
                     searchMarkerr.bindPopup(name);
+                    searchMarkerr.bringToBack();
                 }
             }
         }).catch(error => {
